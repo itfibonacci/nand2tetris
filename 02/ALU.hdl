@@ -56,5 +56,9 @@ CHIP ALU {
     Mux16(a=nxxzxnotxzxandnyyzynotyzy, b=nxxzxnotxzxaddnyyzynotyzy, sel=f, out=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy); //f
 
     Not16(in=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, out=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy);
-    Mux16(a=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, b=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, sel=no, out=out); //no
+    Mux16(a=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, b=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, sel=no, out=final, out=out); //no
+
+    And16(a=final, b=true, out[15]=ng); // and the final result with 1, the first bit will show if output it negative
+    
+
 }
