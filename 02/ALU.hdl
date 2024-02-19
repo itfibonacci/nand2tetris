@@ -56,5 +56,11 @@ CHIP ALU {
     Mux16(a=nxxzxnotxzxandnyyzynotyzy, b=nxxzxnotxzxaddnyyzynotyzy, sel=f, out=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy); //f
 
     Not16(in=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, out=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy);
-    Mux16(a=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, b=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, sel=no, out=final, out[15]=ng, out=out); //no and ng flag together
+    Mux16(a=fnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, b=notfnxxzxnotxzxandnyyzynotyzynxxzxnotxzxaddnyyzynotyzy, sel=no, out[8..15]=highbits, out[0..7]=lowbits, out[15]=ng, out=out); //no and ng flag together
+
+    // implementing the zr flag. My idea is to or all the bits of the final output. result's negation goes into the zr bit
+    Or8Way(in=lowbits, out=orlowbits);
+    Or8Way(in=highbits, out=orhighbits);
+    Or(a=orlowbits, b=orhighbits, out=prezr);
+    Not(in=prezr, out=zr);
 }
